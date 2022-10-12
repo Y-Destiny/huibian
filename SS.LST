@@ -1,0 +1,89 @@
+Microsoft (R) Macro Assembler Version 5.00                  10/3/22 18:24:18
+                                                             Page     1-1
+
+
+       1 0000				DATA	SEGMENT                        
+					                   
+       2 0000  23 16 08 20 64 8A 91	      	BUF  	DB  23H,16H,08H,20H,64H
+					,8AH,91H,35H,2BH,7FH   
+       3       35 2B 7F			
+       4 = 000A				      	CN   	EQU $-BUF  
+       5 000A				DATA	ENDS 
+       6 0000				CODE 	SEGMENT       
+       7				      	ASSUME    CS:CODE,DS:DATA 
+       8 0000  1E			START:	PUSH DS                        
+					          
+       9 0001  33 C0			      	XOR  AX,AX  
+      10 0003  50			      	PUSH AX 
+      11 0004  B8 ---- R		MOV  	AX,DATA 
+      12 0007  8E D8			      	MOV  DS,AX                     
+					   
+      13 0009  BB 0000 R		      	MOV  BX,OFFSET BUF             
+					   
+      14 000C  B9 000A			      	MOV  CX,CN                     
+					   
+      15 000F  49			      	DEC  CX                        
+					   
+      16 0010  8A 07			      	MOV  AL,[BX]                   
+					   
+      17 0012  43			      	INC  BX                        
+					  
+      18 0013  3A 07			LP:	     CMP  AL,[BX]              
+					       
+      19 0015  76 02			      	JBE  NEXT                      
+					   
+      20 0017  8A 07			      	MOV  AL,[BX]                   
+					   
+      21 0019  43			NEXT:	INC  BX                        
+					    
+      22 001A  49			      	DEC  CX                        
+					   
+      23 001B  75 F6			      	JNZ  LP 
+      24 001D  8A D0			      	MOV  DL,AL                     
+					     
+      25 001F  B4 02			      	MOV  AH,02H                    
+					 
+      26 0021  CD 21					INT    21H             
+					       
+      27 0023  B4 4C					MOV  AH,4CH 
+      28 0025  CD 21					INT  21H               
+					           
+      29 0027				CODE	ENDS                           
+					   
+      30				      	END  START 
+Microsoft (R) Macro Assembler Version 5.00                  10/3/22 18:24:18
+                                                             Symbols-1
+
+
+Segments and Groups:
+
+                N a m e         	Length	 Align	Combine Class
+
+CODE . . . . . . . . . . . . . .  	0027	PARA	NONE	
+DATA . . . . . . . . . . . . . .  	000A	PARA	NONE	
+
+Symbols:            
+
+                N a m e         	Type	 Value	 Attr
+
+BUF  . . . . . . . . . . . . . .  	L BYTE	0000	DATA
+
+CN . . . . . . . . . . . . . . .  	NUMBER	000A	
+
+LP . . . . . . . . . . . . . . .  	L NEAR	0013	CODE
+
+NEXT . . . . . . . . . . . . . .  	L NEAR	0019	CODE
+
+START  . . . . . . . . . . . . .  	L NEAR	0000	CODE
+
+@FILENAME  . . . . . . . . . . .  	TEXT  ss		
+
+
+     29 Source  Lines
+     29 Total   Lines
+      9 Symbols
+
+  50558 + 465234 Bytes symbol space free
+
+      0 Warning Errors
+      0 Severe  Errors

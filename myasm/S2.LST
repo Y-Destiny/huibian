@@ -1,0 +1,44 @@
+Microsoft (R) Macro Assembler Version 5.00                  10/3/22 18:06:13
+                                                             Page     1-1
+
+
+       1				                  
+       2 0000				CODE 	SEGMENT       
+       3				      	ASSUME    CS:CODE 
+       4 0000  B2 33			START:	MOV  DL,33H                   
+       5 0002  B4 02					MOV  AH,02H            
+					         
+       6 0004  CD 21					INT    21H             
+					       
+       7 0006  CD 20					INT    20H             
+					              
+       8 0008				CODE	ENDS                           
+					   
+       9				      	END  START 
+Microsoft (R) Macro Assembler Version 5.00                  10/3/22 18:06:13
+                                                             Symbols-1
+
+
+Segments and Groups:
+
+                N a m e         	Length	 Align	Combine Class
+
+CODE . . . . . . . . . . . . . .  	0008	PARA	NONE	
+
+Symbols:            
+
+                N a m e         	Type	 Value	 Attr
+
+START  . . . . . . . . . . . . .  	L NEAR	0000	CODE
+
+@FILENAME  . . . . . . . . . . .  	TEXT  S2		
+
+
+      9 Source  Lines
+      9 Total   Lines
+      4 Symbols
+
+  50638 + 465154 Bytes symbol space free
+
+      0 Warning Errors
+      0 Severe  Errors

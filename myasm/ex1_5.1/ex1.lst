@@ -1,0 +1,41 @@
+Microsoft (R) Macro Assembler Version 6.11		    10/06/22 11:04:51
+tempfile.asm						     Page 1 - 1
+
+
+ 0000				CODE SEGMENT
+				    ASSUME CS:CODE
+ 0000  B4 01			START: MOV AH,01H
+ 0002  CD 21			       INT 21H
+ 0004  3C 61			       CMP AL,61H
+ 0006  7C 0C			       JL  ED
+ 0008  3C 7A			       CMP AL,7AH
+ 000A  7F 08			       JG  ED
+ 000C  2C 20			       SUB AL,20H
+ 000E  8A D0			       MOV DL,AL
+ 0010  B4 02			       MOV AH,02H
+ 0012  CD 21			       INT 21H
+ 0014  CD 20			ED:   INT 20H
+ 0016				CODE ENDS
+				     END START
+Microsoft (R) Macro Assembler Version 6.11		    10/06/22 11:04:51
+tempfile.asm						     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+CODE . . . . . . . . . . . . . .	16 Bit	 0016	  Para	  Private 
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+ED . . . . . . . . . . . . . . .	L Near	 0014	  CODE	
+START  . . . . . . . . . . . . .	L Near	 0000	  CODE	
+
+	   0 Warnings
+	   0 Errors

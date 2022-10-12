@@ -1,0 +1,51 @@
+;要求通过键盘接收一个个位数N，然后显示N个字母‘$’。（单循环程序）
+DATA SEGMENT
+    CHANGELINE DB 13,10,'$'
+    STR1 BYTE 'please input number: $'
+DATA ENDS
+
+STACKS SEGMENT
+    
+STACKS ENDS
+
+CODES SEGMENT
+    ASSUME CS:CODES, DS:DATA, SS:STACKS
+START:
+    MOV AX, DATA
+    MOV DS, AX
+    MOV DX,OFFSET STR1
+    MOV AH,09H
+    INT 21H
+    MOV AH,01H
+    INT 21H
+    CMP AL,31H
+    JL  START
+    CMP AL,39H
+    JG  START
+    MOV CH,AL
+    SUB CH,30H
+    MOV DL,24H;$对应ascll码为24h
+
+    CALL CRLF
+
+L1: MOV AH,02H
+    INT 21H
+    DEC CH
+    JNZ L1
+
+    JMP START
+    MOV AH, 4CH
+    INT 21H
+
+;回车换行
+CRLF PROC NEAR
+    MOV DL,0DH
+    MOV AH,02H
+    INT 21H
+    MOV DL,0AH
+    MOV AH,02H
+    INT 21H
+    ret
+CRLF ENDP
+CODES ENDS
+END START

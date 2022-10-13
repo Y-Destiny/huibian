@@ -72,7 +72,7 @@ PRINT:
         CALL BINIDEC
         MOV AH, 4CH
         INT 21H
-;description
+;无符号数转十进制输出
 BINIDEC PROC NEAR
     MOV BL,10
     DIV BL         ;除数在BL,商存在AL,余数存在AH

@@ -74,29 +74,32 @@ PRINT:
         INT 21H
 ;无符号数转十进制输出
 BINIDEC PROC NEAR
-    MOV BL,10
-    DIV BL         ;除数在BL,商存在AL,余数存在AH
-    
     PUSH AX
-    
-    MOV DL,AL 
-    ADD DL,30H    ;输出商
-    MOV AH,02H
-    INT 21H
-    
+    PUSH BX
+    PUSH CX
+    MOV CX, 000AH
+DoDiv:
+    CMP AX, 0
+    JZ  DIVOVER
+    INC CH
+    DIV CL
+    PUSH AX
+    MOV AH, 0
+    JMP DoDiv
+DIVOVER:
+    CMP CH,0
+    JZ  OUTOVER
+    DEC CH
     POP AX
-    
-    MOV DL,AH
-    ADD DL,30H
-    MOV AH,02H
+    MOV DL, AH
+    ADD DL, 30H
+    MOV AH, 02H
     INT 21H
-
-    MOV DL,0DH
-    MOV AH,02H
-    INT 21H
-    MOV DL,0AH
-    MOV AH,02H
-    INT 21H
+    JMP DIVOVER
+OUTOVER:
+    POP CX
+    POP BX
+    POP AX
     RET
 BINIDEC ENDP
 CODES ENDS

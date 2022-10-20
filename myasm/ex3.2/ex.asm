@@ -1,5 +1,5 @@
 DATA SEGMENT
-   STR BYTE 'please input the equation:$' 
+   STR BYTE 'please input the equation(just(int)'+'or'-'):$' 
 DATA ENDS
 
 STACKS SEGMENT
@@ -12,7 +12,7 @@ START:
     MOV AX, DATA
     MOV DS, AX
     LEA DX, STR
-    MOV AH, 02H
+    MOV AH, 09H
     INT 21H
     CALL DECIBIN
     MOV SI, BX
@@ -60,28 +60,42 @@ EXIT:
 DECIBIN ENDP
 ;有符号数转十进制输出,入口参数SI
 BINIDEC PROC NEAR
-    PUSH BX
-    PUSH DX
-    MOV BX, SI
+        PUSH BX
+        PUSH DX
+        MOV BX, SI
 
-    CMP AX, 0
-    JS  NEGATIVE
-    JMP POSITIVE
+        CMP AX, 0
+        JS  NEGATIVE
+        JZ  ZERO
+        JMP POSITIVE
 
-NEGATIVE:
-    MOV DL, 2DH
-    MOV AH, 02H
-    INT 21H
+    NEGATIVE:
+        MOV DL, 2DH
+        MOV AH, 02H
+        INT 21H
 
-    NEG	BX
-    CALL OUTPUTNUM
-    JMP DECIBINOVER
-POSITIVE:
-    CALL OUTPUTNUM
-DECIBINOVER:
-    RET
+        NEG	BX
+        CALL OUTPUTNUM
+        JMP DECIBINOVER
+    POSITIVE:
+        CALL OUTPUTNUM
+        JMP DECIBINOVER
+    ZERO:
+        MOV DL,30H
+        MOV AH,02H
+        INT 21H
+        MOV DL,0DH
+        MOV AH,02H
+        INT 21H
+        MOV DL,0AH
+        MOV AH,02H
+        INT 21H
+    DECIBINOVER:
+        POP DX
+        POP BX
+        RET
 BINIDEC ENDP
-;输出十进制数
+;输出十进制数,人口参数BX
 OUTPUTNUM PROC NEAR
     PUSH AX
     PUSH BX
